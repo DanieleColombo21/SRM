@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #073a5e;">
+        <a class="navbar-brand text-light">SRM</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" href="{{ url_for('home') }}">Prenota</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-light" href="{{ url_for('profile') }}">Le tue prenotazioni</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h3 class="text-center mb-4">Le tue prenotazioni:</h3>
+        {% if msg %}
+            <div class="alert alert-success" role="alert">
+                {{ msg }}
+            </div>
+        {% endif %}
+        <!-- Prenotazioni Attive -->
+        <h5 class="mb-3">Prenotazioni Attive</h5>
+        <div class="row">
+            {% for slot in p_attive %}
+                <div class="col-md-4">
+                    <div class="card text-center mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ slot.tipo.name }}</h5>
+                            <p class="card-text"><b>Inizio</b>: {{ slot.inizio.strftime("%A %d %B %Y - %H:%M") }}</p>
+                            <p class="card-text"><b>Fine</b>: {{ slot.fine.strftime("%A %d %B %Y - %H:%M") }}</p>
+                            <form action="{{ url_for('disdici', slot_id=slot.id) }}" method="post">
+                                <button type="submit" class="btn btn-danger {% if not slot.disdici %}disabled{% endif %}">Disdici</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center">Non hai prenotazioni attive.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Prenotazioni Passate -->
+        <h5 class="mb-3">Prenotazioni Passate</h5>
+        <div class="table-responsive">
+            <table class="table table-border table-light table-striped text-center ">
+                <thead>
+                    <tr class="table-primary">
+                        <th>Tipo</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for slot in p_concluse %}
+                        <tr>
+                            <td>{{ slot.tipo.name }}</td>
+                            <td>{{ slot.inizio.strftime("%A %d %B %Y - %H:%M") }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="2" class="text-center">Non hai prenotazioni passate</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

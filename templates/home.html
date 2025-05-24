@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Homepage</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .center-container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #073a5e;">
+        <a class="navbar-brand text-light">SRM</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" href="{{ url_for('home') }}">Prenota</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-light" href="{{ url_for('profile') }}">Le tue prenotazioni</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container center-container">
+        {% if error %}
+        <div class="alert alert-danger text-center" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <h2>Scegli cosa prenotare:</h2>
+                <div class="mt-4">
+                    <a href="{{ url_for('slots', tipo='RICEVIMENTO') }}" class="btn btn-lg btn-primary btn-block mb-2 {% if not r %}disabled{% endif %}">Ricevimento</a>
+                    <a href="{{ url_for('slots', tipo='ESAME') }}" class="btn btn-lg btn-primary btn-block mb-2 {% if not e %}disabled{% endif %}">Esame</a>
+                    <a href="{{ url_for('slots', tipo='TIROCINIO') }}" class="btn btn-lg btn-primary btn-block mb-2 {% if not t %}disabled{% endif %}">Tirocinio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

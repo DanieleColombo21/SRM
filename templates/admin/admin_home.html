@@ -1,0 +1,83 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<div class="container mt-4">
+    <h3 class="text-center">Benvenuto Professore</h3>
+    <h5 class="text-center mt-4">Ecco gli eventi della prossima settimana:</h5>
+    
+    <!-- Ricevimenti -->
+    <h5 class="text-center mt-4">Ricevimenti:</h5>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th class="text-center">Data e Ora di Inizio</th>
+                    <th class="text-center">Studente</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for slot in ric %}
+                    <tr>
+                        <td>{{ slot.inizio.strftime('%A %d %B %Y - %H:%M') }}</td>
+                        <td>{{ slot.studente }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2" class="text-center">Nessun ricevimento prenotato per questa settimana</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Esami -->
+    <h5 class="text-center mt-4">Esami:</h5>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th class="text-center">Data e Ora di Inizio</th>
+                    <th class="text-center">Studente</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for slot in esm %}
+                    <tr>
+                        <td>{{ slot.inizio.strftime('%A %d %B %Y - %H:%M') }}</td>
+                        <td>{{ slot.studente }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2" class="text-center">Nessun esame prenotato per questa settimana</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Tirocini -->
+    <h5 class="text-center mt-4">Tirocini:</h5>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="table-primary">
+                <tr>
+                    <th class="text-center">Data e Ora di Inizio</th>
+                    <th class="text-center">Studente</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for slot in tir %}
+                    <tr>
+                        <td>{{ slot.inizio.strftime('%A %d %B %Y - %H:%M') }}</td>
+                        <td>{{ slot.studente }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2" class="text-center">Nessun tirocinio prenotato per questa settimana</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

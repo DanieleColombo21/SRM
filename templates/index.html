@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SRM</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .center-container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="container text-center">
+            <p class="h1">SRM</p>
+            <p class="h3">Students Relationship Management</p>
+            {% if error %}
+	        <div class="alert alert-danger" role="alert">
+		        {{ error }}
+	        </div>
+            {% endif %}
+            <h5 class="mb-4">Inserire la propria mail universitaria</h5>
+            <form action="{{ url_for('confirm') }}" method = "POST" class="form-inline justify-content-center">
+                <div class="input-group mb-3">
+                    <input type="email" name="email" class="form-control" placeholder="Inserire email" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Invia</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prenota</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #073a5e;">
+        <a class="navbar-brand text-light">SRM</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" href="{{ url_for('home') }}">Prenota</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-light" href="{{ url_for('profile') }}">Le tue prenotazioni</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            {% for slot in slots %}
+            <div class="col-md-6">
+                <div class="card text-center mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tipo }}</h5>
+                        <p class="card-text"><b>Inizio:</b> {{ slot.inizio.strftime('%A %d %B %Y - %H:%M') }}</p>
+                        <p class="card-text"><b>Fine:</b> {{ slot.fine.strftime('%A %d %B %Y - %H:%M') }}</p>
+                        <a href="{{ url_for('prenota', slot_id=slot.id) }}" class="btn btn-primary {% if dis %}disabled{% endif %}">Prenota</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
